@@ -1,0 +1,19 @@
+[2024-11-13 16:12:41] INSTALL.INFO: Installer Step 1 [] {"uid":"448eeac"}
+[2024-11-13 16:46:05] INSTALL.INFO: Installer Step 1 [] {"uid":"bc92463"}
+[2024-11-13 16:46:12] INSTALL.INFO: Installer Step 2 [] {"uid":"c1888dc"}
+[2024-11-13 16:49:37] INSTALL.INFO: Installer Step 3 [] {"uid":"f74af96"}
+[2024-11-13 16:49:37] INSTALL.INFO: Setting unlimited max execution time. [] {"uid":"f74af96"}
+[2024-11-13 16:49:37] INSTALL.ERROR: Installation Exception on Step 3: Could not connect to MySQL with the administrator details. Please check and try again. Error Message = [SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES)] [] {"uid":"f74af96"}
+[2024-11-13 16:53:22] INSTALL.INFO: Installer Step 1 [] {"uid":"74dfc6a"}
+[2024-11-13 16:53:26] INSTALL.INFO: Installer Step 1 [] {"uid":"0f27ee4"}
+[2024-11-13 17:02:55] INSTALL.INFO: Installer Step 1 [] {"uid":"d838dce"}
+[2024-11-13 17:03:01] INSTALL.INFO: Installer Step 2 [] {"uid":"4e5070f"}
+[2024-11-13 17:03:05] INSTALL.INFO: Installer Step 3 [] {"uid":"471ac77"}
+[2024-11-13 17:03:05] INSTALL.INFO: Setting unlimited max execution time. [] {"uid":"471ac77"}
+[2024-11-13 17:03:15] INSTALL.INFO: Installer Step 4 [] {"uid":"953e003"}
+[2024-11-13 17:03:28] INSTALL.INFO: Installer Step 5 [] {"uid":"2703039"}
+[2024-11-13 17:03:28] INSTALL.INFO: Installer Step 6 [] {"uid":"d4cb462"}
+[2024-11-13 17:05:01] INSTALL.INFO: Installer Step 7 [] {"uid":"11b213b"}
+[2024-11-13 17:05:01] INSTALL.ERROR: Installation Exception on Step 7: Could not create the Library Location directory for you. Please ensure the webserver has permission to create a folder in this location, or create the folder manually and grant permission for the webserver to write to the folder. [] {"uid":"11b213b"}
+[2024-11-13 17:06:41] INSTALL.INFO: Installer Step 7 [] {"uid":"739726c"}
+[2024-11-13 17:06:41] INSTALL.INFO: Installation Complete. Redirecting to /login [] {"uid":"739726c"}
