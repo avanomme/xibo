@@ -446,6 +446,16 @@ class Stats extends Base
                 $entry['mediaTags'] = $tagFilter['media'] ?? [];
             }
 
+            if ($type == 'chromium') {
+                // Handle Chromium specific stats
+                $entry['type'] = 'chromium';
+                $entry['duration'] = $sanitizedRow->getInt('duration');
+                $entry['count'] = $sanitizedRow->getInt('count');
+                $entry['layout'] = $sanitizedRow->getString('layout');
+                $entry['media'] = $sanitizedRow->getString('media');
+                $entry['displayId'] = $sanitizedRow->getInt('displayId');
+            }
+
             $rows[] = $entry;
         }
 

@@ -817,3 +817,7 @@ $app->group('', function (RouteCollectorProxy $group) {
     $group->delete('/menuboard/{id}/product', ['\Xibo\Controller\MenuBoardProduct', 'delete'])->setName('menuBoard.product.delete');
 })
     ->addMiddleware(new FeatureAuth($app->getContainer(), ['menuBoard.modify']));
+
+// Chromium Display Routes
+$app->get('/display/chromium/connect', ['\Xibo\Controller\Display', 'chromiumConnect']);
+$app->get('/display/chromium/content/{id}', ['\Xibo\Controller\PlayerSoftware', 'chromiumContent']);

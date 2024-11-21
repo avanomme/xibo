@@ -542,4 +542,29 @@ class DisplayProfileFactory extends BaseFactory
         $function = $this->customProfileSettings[$displayProfile->getClientType()]['handleCustomFields'];
         return $this->customProfileSettings[$displayProfile->getClientType()]['class']::$function($displayProfile, $sanitizedParams, $config, $display, $this->getLog());
     }
+
+    /**
+     * Create Default Chromium Profile
+     * @return DisplayProfile
+     */
+    public function createDefaultChromiumProfile()
+    {
+        $profile = $this->createEmpty();
+        $profile->name = 'Chromium';
+        $profile->type = 'chromium';
+        $profile->isDefault = 1;
+        
+        // Set default settings
+        $profile->setSetting('collectInterval', 300);
+        $profile->setSetting('downloadStartWindow', '00:00');
+        $profile->setSetting('downloadEndWindow', '00:00');
+        $profile->setSetting('dayPartId', 0);
+        $profile->setSetting('screenShotRequested', 0);
+        $profile->setSetting('screenShotRequestedDate', 0);
+        $profile->setSetting('displayClock', 0);
+        $profile->setSetting('enableStatistics', 1);
+        $profile->setSetting('isRecordGeoLocationOnProofOfPlay', 0);
+        
+        return $profile;
+    }
 }

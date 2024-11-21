@@ -1,0 +1,50 @@
+{% extends "form-base.twig" %}
+{% import "forms.twig" as forms %}
+
+{% block formHtml %}
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"><a class="nav-link active" href="#general" role="tab" data-toggle="tab">{% trans "General" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="#network" role="tab" data-toggle="tab">{% trans "Network" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="#troubleshooting" role="tab" data-toggle="tab">{% trans "Troubleshooting" %}</a></li>
+        </ul>
+        
+        <form id="displayProfileForm" class="XiboForm form-horizontal" method="put" action="{{ url_for("displayProfile.edit", {id: displayProfile.displayProfileId}) }}">
+            <div class="tab-content">
+                <div class="tab-pane active" id="general">
+                    {% set title = "Kiosk Mode"|trans %}
+                    {% set helpText = "Enable full kiosk mode in Chromium"|trans %}
+                    {{ forms.checkbox("kioskMode", title, displayProfile.getSetting("kioskMode", 1), helpText) }}
+
+                    {% set title = "Cache Duration"|trans %}
+                    {% set helpText = "How long should content be cached on the device (seconds)"|trans %}
+                    {{ forms.number("cacheDuration", title, displayProfile.getSetting("cacheDuration", 86400), helpText) }}
+
+                    {% set title = "Collect Interval"|trans %}
+                    {% set helpText = "How often should the player check for new content (seconds)"|trans %}
+                    {{ forms.number("collectInterval", title, displayProfile.getSetting("collectInterval", 300), helpText) }}
+                </div>
+
+                <div class="tab-pane" id="network">
+                    {% set title = "Force HTTPS?"|trans %}
+                    {% set helpText = "Should the player be forced to use HTTPS connection to the CMS?"|trans %}
+                    {{ forms.checkbox("forceHttps", title, displayProfile.getSetting("forceHttps"), helpText) }}
+                </div>
+
+                <div class="tab-pane" id="troubleshooting">
+                    {% set title = "Log Level"|trans %}
+                    {% set helpText = "The logging level that should be recorded by the Player."|trans %}
+                    {% set options = [
+                        { id: 'debug', value: "Debug"|trans },
+                        { id: 'info', value: "Information"|trans },
+                        { id: 'error', value: "Error"|trans },
+                        { id: 'off', value: "Off"|trans }
+                    ] %}
+                    {{ forms.dropdown("logLevel", "single", title, displayProfile.getSetting("logLevel"), options, "id", "value", helpText) }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

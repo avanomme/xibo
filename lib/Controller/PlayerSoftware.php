@@ -598,4 +598,60 @@ class PlayerSoftware extends Base
 
         return $ssspDocument->saveXML();
     }
+
+    /**
+     * Serve Chromium Player Content
+     * @param Request $request
+     * @param Response $response
+     * @param int $id Display ID
+     * @return Response
+     */
+    public function chromiumContent(Request $request, Response $response, $id)
+    {
+        // Get the display
+        $display = $this->displayFactory->getById($id);
+        
+        // Get the display profile
+        $displayProfile = $display->getDisplayProfile();
+        
+        // Get current layout
+        $layoutId = $display->getCurrentLayoutId($this->pool, $this->layoutFactory);
+        $layout = $this->layoutFactory->getById($layoutId);
+        
+        // Generate HTML wrapper for Chromium
+        $html = '<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>' . $display->display . '</title>
+            <style>
+                body { 
+                    margin: 0; 
+                    padding: 0; 
+                    overflow: hidden; 
+                    background: #000;
+                }
+                #player { 
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100vw;
+                    height: 100vh;
+                }
+            </style>
+            <script src="/dist/chromium-player.js"></script>
+        </head>
+        <body>
+            <div id="player" 
+                data-display-id="' . $display->displayId . '"
+                data-cms-url="' . $this->getConfig()->getApiUrl() . '"
+                data-key="' . $display->clientCode . '">
+            </div>
+        </body>
+        </html>';
+        
+        $response = $response->withHeader('Content-Type', 'text/html');
+        return $response->write($html);
+    }
 }

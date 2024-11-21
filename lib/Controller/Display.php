@@ -2921,4 +2921,59 @@ class Display extends Base
 
         return $this->render($request, $response);
     }
+
+    /**
+     * Handle Chromium Display Connection
+     * @param Request $request
+     * @param Response $response
+     * @return Response
+     */
+    public function chromiumConnect(Request $request, Response $response)
+    {
+        $sanitizedParams = $this->getSanitizer($request->getParams());
+        
+        // Get display details from request
+        $displayName = $sanitizedParams->getString('display');
+        $displayId = $sanitizedParams->getInt('displayId');
+        $clientType = 'chromium';
+        
+        try {
+            if ($displayId) {
+                $display = $this->displayFactory->getById($displayId);
+            } else {
+                $display = $this->displayFactory->createEmpty();
+                $display->display = $displayName;
+                $display->licensed = 1;
+                $display->clientType = $clientType;
+                $display->clientCode = Random::generateString(50);
+                $display->incSchedule = 1;
+                $display->defaultLayoutId = $this->getConfig()->getSetting('DEFAULT_LAYOUT');
+            }
+
+            // Set display specific settings
+            $display->setSetting('collectInterval', 300);
+            $display->setSetting('downloadStartWindow', '00:00');
+            $display->setSetting('downloadEndWindow', '00:00');
+            $display->setSetting('dayPartId', 0);
+            
+            $display->save();
+
+            // Return display configuration
+            return $response->withJson([
+                'status' => 'success',
+                'display' => [
+                    'displayId' => $display->displayId,
+                    'display' => $display->display,
+                    'layoutId' => $display->defaultLayoutId,
+                    'xmrChannel' => $display->xmrChannel,
+                    'collectInterval' => $display->getSetting('collectInterval', 300),
+                    'clientKey' => $display->clientCode
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            $this->getLog()->error('Unable to create Chromium display: ' . $e->getMessage());
+            throw new InvalidArgumentException(__('Unable to create Chromium display'), 'display');
+        }
+    }
 }

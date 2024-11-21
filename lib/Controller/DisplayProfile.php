@@ -649,4 +649,24 @@ class DisplayProfile extends Base
 
         return $this->render($request, $response);
     }
+
+    public function chromiumFormAdd(Request $request, Response $response)
+    {
+        $template = 'displayprofile-form-edit-chromium';
+        
+        // Get the display profile
+        $displayProfile = $this->displayProfileFactory->createEmpty();
+        $displayProfile->type = 'chromium';
+        
+        $data = [
+            'displayProfile' => $displayProfile,
+            'commands' => $this->commandFactory->query(),
+            'dayParts' => $this->dayPartFactory->allWithSystem()
+        ];
+        
+        $this->getState()->template = $template;
+        $this->getState()->setData($data);
+        
+        return $this->render($request, $response);
+    }
 }
