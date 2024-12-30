@@ -19,3 +19,7 @@ if ($maintenanceEnabled !== 1 && $maintenanceEnabled !== '1' && $maintenanceEnab
     header('Location: index.php');
     exit();
 } 
+
+sudo git fetch origin
+sudo git checkout backup
+sudo git pull origin backup
